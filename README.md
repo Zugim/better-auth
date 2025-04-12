@@ -1,1 +1,1 @@
-## Better Auth Boilerplate
+## Next.js Better Auth Boilerplate
