@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { authClient } from "@/lib/auth-client";
-import SignOutBtn from "./sign-out-btn";
+import LogoutBtn from "./logout-btn";
 
 export default async function Navbar() {
   const session = await auth.api.getSession({
@@ -15,7 +15,7 @@ export default async function Navbar() {
       <Link href="/">Better Auth</Link>
       {session ? (
         <Link href="/sign-out">
-          <SignOutBtn />
+          <LogoutBtn />
         </Link>
       ) : (
         <div className="space-x-2">
