@@ -10,17 +10,12 @@ export default function LogoutBtn() {
   async function handleSignOut() {
     await authClient.signOut({
       fetchOptions: {
-        onSuccess: async () => {
-          await authClient.signOut({
-            fetchOptions: {
-              onSuccess: () => {
-                router.push("/");
-              },
-              onError: (ctx) => {
-                console.error("Error logging out:", ctx.error);
-              },
-            },
-          });
+        onSuccess: () => {
+          console.log("Logged out");
+          router.push("/login");
+        },
+        onError: (ctx) => {
+          console.error("Error logging out:", ctx.error);
         },
       },
     });
