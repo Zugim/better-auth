@@ -9,9 +9,12 @@ export default function AuthControls() {
   const { data: session } = authClient.useSession();
 
   return (
-    <div className="space-x-2">
+    <div className="flex items-center gap-2">
       {session ? (
-        <LogoutBtn />
+        <>
+          <p>Hello, {session.user.name}</p>
+          <LogoutBtn />
+        </>
       ) : (
         <>
           <Link href="/login">

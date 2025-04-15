@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { loginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
 
@@ -20,12 +21,6 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { AlertCircle, LoaderCircle } from "lucide-react";
-
-// define zod schema
-const loginSchema = z.object({
-  email: z.string().email({ message: "Email must be a valid email address." }),
-  password: z.string().min(1, { message: "Password is required." }),
-});
 
 export default function Login() {
   const router = useRouter();
