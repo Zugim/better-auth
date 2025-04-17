@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -24,7 +25,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 // icons
 import { AlertCircle, LoaderCircle } from "lucide-react";
 
-export default function ForgotPassword() {
+function ForgotPasswordContent() {
   const searchParams = useSearchParams();
 
   const token = searchParams.get("token") as string | undefined;
@@ -128,5 +129,13 @@ export default function ForgotPassword() {
         </CardContent>
       </CardHeader>
     </Card>
+  );
+}
+
+export default function ForgotPassword() {
+  return (
+    <Suspense>
+      <ForgotPasswordContent />
+    </Suspense>
   );
 }
