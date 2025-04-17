@@ -97,7 +97,7 @@ export default function Login() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto mt-16">
+    <Card className="w-full max-w-md mx-auto mt-12">
       <CardHeader>
         <CardTitle className="text-2xl font-semibold px-6 mb-4">
           Login
@@ -171,7 +171,7 @@ export default function Login() {
             ) : (
               <>
                 <Github />
-                Continue with Github
+                Continue With Github
               </>
             )}
           </Button>

@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>Home</div>;
+  return <h1 className="mt-12">Boilerplate for Better Auth and Next.js</h1>;
 }

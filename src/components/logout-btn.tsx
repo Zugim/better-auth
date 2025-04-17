@@ -4,6 +4,9 @@ import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
+//icons
+import { LogOut } from "lucide-react";
+
 export default function LogoutBtn() {
   const router = useRouter();
 
@@ -11,8 +14,7 @@ export default function LogoutBtn() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          console.log("Logged out");
-          router.push("/login");
+          router.push("/");
         },
         onError: (ctx) => {
           console.error("Error logging out:", ctx.error);
@@ -23,7 +25,7 @@ export default function LogoutBtn() {
 
   return (
     <Button variant="default" onClick={handleSignOut}>
-      Sign Out
+      <LogOut /> Logout
     </Button>
   );
 }

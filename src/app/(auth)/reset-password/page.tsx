@@ -58,7 +58,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto mt-16">
+    <Card className="w-full max-w-md mx-auto mt-12">
       <CardHeader>
         <CardTitle className="text-2xl font-semibold px-6 mb-4">
           Reset Password
