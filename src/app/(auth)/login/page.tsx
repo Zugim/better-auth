@@ -50,7 +50,7 @@ export default function Login() {
       },
       {
         onSuccess: () => {
-          router.push("/");
+          router.push("/dashboard");
         },
         onError: (ctx) => {
           if (ctx.error.code === "INVALID_EMAIL_OR_PASSWORD") {
