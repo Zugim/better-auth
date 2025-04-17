@@ -33,3 +33,21 @@ export const signUpSchema = z
     message: "Passwords must match.",
     path: ["confirmPassword"],
   });
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().email({ message: "Email must be a valid email address." }),
+});
+
+export const ResetPasswordSchema = z
+  .object({
+    password: z.string().min(6, {
+      message: "Password must be at least 10 characters.",
+    }),
+    confirmPassword: z.string().min(6, {
+      message: "Passwords must match.",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match.",
+    path: ["confirmPassword"],
+  });

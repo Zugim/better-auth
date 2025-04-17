@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { loginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
 
+// shadcan
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -20,10 +23,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-import { AlertCircle, LoaderCircle } from "lucide-react";
+// icons
+import { AlertCircle, LoaderCircle, Github } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
+
+  // state
+  const [pendingGitHubLogin, setPendingGitHubLogin] = useState(false);
 
   // define form
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -59,6 +66,31 @@ export default function Login() {
               message: "Email address not validated. Please check your email.",
             });
           }
+        },
+      }
+    );
+  }
+
+  async function handleGitHubLogin() {
+    console.log("LOGGING IN WITH GITHUB");
+
+    await authClient.signIn.social(
+      {
+        provider: "github",
+      },
+      {
+        onRequest: () => {
+          setPendingGitHubLogin(true);
+        },
+        onError: (ctx) => {
+          console.error("Error logging in with GitHub:", ctx.error);
+          form.setError("root", {
+            type: "server",
+            message: "Something went wrong signing in with GitHub.",
+          });
+        },
+        onResponse: () => {
+          setPendingGitHubLogin(false);
         },
       }
     );
@@ -112,17 +144,40 @@ export default function Login() {
                   </AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" disabled={form.formState.isSubmitting}>
+              <Button
+                className="w-full"
+                type="submit"
+                disabled={form.formState.isSubmitting || pendingGitHubLogin}
+              >
                 {form.formState.isSubmitting ? (
                   <>
-                    Submitting <LoaderCircle className="animate-spin" />
+                    Processing <LoaderCircle className="animate-spin" />
                   </>
                 ) : (
-                  "Submit"
+                  "Login"
                 )}
               </Button>
             </form>
           </Form>
+          <Button
+            className="w-full mt-2"
+            onClick={handleGitHubLogin}
+            disabled={form.formState.isSubmitting || pendingGitHubLogin}
+          >
+            {pendingGitHubLogin ? (
+              <>
+                Processing <LoaderCircle className="animate-spin" />
+              </>
+            ) : (
+              <>
+                <Github />
+                Continue with Github
+              </>
+            )}
+          </Button>
+          <div className="mt-4 text-center text-sm">
+            <Link href="/forgot-password">Forgot password?</Link>
+          </div>
         </CardContent>
       </CardHeader>
     </Card>
