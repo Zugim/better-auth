@@ -72,11 +72,10 @@ export default function Login() {
   }
 
   async function handleGitHubLogin() {
-    console.log("LOGGING IN WITH GITHUB");
-
     await authClient.signIn.social(
       {
         provider: "github",
+        callbackURL: "/dashboard",
       },
       {
         onRequest: () => {
