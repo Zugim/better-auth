@@ -22,10 +22,7 @@ export const auth = betterAuth({
       });
     },
   },
-  trustedOrigins: [
-    "http://localhost:3000",
-    "https://better-auth-dmze-hidql4qdn-zugims-projects.vercel.app/",
-  ],
+  trustedOrigins: [process.env.VERCEL_URL!],
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
